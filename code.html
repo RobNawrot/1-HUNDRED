@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 
 <head>
-    <title>App Name: A Coding Project By Robert Nawrot</title>
+    <title>1-HUNDRED: A Coding Project By Robert Nawrot</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,10 +11,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
+    <!-- Custom CSS, FontAwesome icons and Personal icon  -->
     <script src="https://kit.fontawesome.com/5db21ba9c6.js" crossorigin="anonymous"></script>
     <link href="css/site.css" rel="stylesheet">
     <link href="css/prism.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="img/Profile Picture-03.svg">
+
+    <!-- Google Fonts for Montserrat Alternates -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     
 </head>
 
@@ -24,8 +30,8 @@
     <!-- ==== Nav Section ==== -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src="img/Profile Picture-03.svg" class="d-inline-block align-text-top" 
-            alt="Robert Nawrot Logo" width="30" height="28"> APP NAME</a>
+        <a class="navbar-brand logoFont" href="#"><img src="img/Profile Picture-03.svg" class="d-inline-block align-text-top" 
+            alt="Robert Nawrot Logo" width="30" height="28"> 1-HUNDRED</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -42,12 +48,10 @@
                     <a class="nav-link active" aria-current="page" href="code.html">The Code</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="#">Git Repo</a> 
-                    <!-- Github link to the project repo. -->
+                    <a class="nav-link" target="_blank" href="https://github.com/RobNawrot/TheHundred">Git Repo</a> 
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" target="_blank" href="#">About</a>
-                    <!-- The href for the About Tab will link to my portfolio. -->
                 </li>
             </ul>
         </div>
@@ -57,21 +61,111 @@
     <!-- ==== Main Section ==== -->
     <main class="flex-shrink-0">
         <div class="container py-5 px-5 mt-5">
-            <h2 class="border-1 border-bottom border-dark">The Code for APP NAME</h2>
+            <h2 class="border-1 border-bottom border-dark">The Code for 1-HUNDRED</h2>
             <div class="row row-cols-1 row-cols-lg-2">
                 <div class="col-lg-8">
                     <pre class="line-numbers"><code class="language-javascript">
-                        // Call Hello World
-                        function HelloWorld() {
-                            alert("hello world!");
+                        
+                                                
+                        // Get the Values from the Page. (Controller Function)
+                        function getValues() {
+                            
+                            // Get values from the page.
+                            let startValue = document.getElementById("startValue").value;
+                            let endValue = document.getElementById("endValue").value;
+
+                            // Attempt to cast the string values into integer values.
+                            startValue = parseInt(startValue);
+                            endValue = parseInt(endValue);
+
+                            // Input given for start and end values must be validated.
+                            if (Number.isInteger(startValue) && Number.isInteger(endValue) &&
+                            startValue >= 0 && startValue < 100 && endValue > 0 && endValue <= 100) {
+                                // Call generateNumbers().
+                                let numbers = generateNumbers(startValue, endValue);
+                                // Call displayNumbers().
+                                displayNumbers(numbers);  
+                            }
+                            else {
+                                alert("ERROR - You must enter integer values within the range of 0 - 100.");
+                            }
+
+                        } 
+
+                        // Generate numbers from the start value to the end value. (Logic Function)
+                        function generateNumbers(startValue, endValue) {
+
+                            let numbers = [];
+
+                            // We want to get all numbers from start to end.
+                            // This loop will iterate until i = endValue.
+                            for (let i = startValue; i <= endValue; i++) {
+                                numbers.push(i);
+                            }
+
+                            return numbers;
+
                         }
+
+                        // Display the numbers and mark EVEN numbers BOLD. (Display Function)
+                        function displayNumbers(numbers) {
+                            
+                            // General string used for generating HTML table on the app page.
+                            let templateRows = "";
+                            
+                            // Loops through the 'numbers' array of integer values and builds the HTML
+                            // string.
+                            for (let i = 0; i < numbers.length; i++) {
+                                
+                                let className = "even";
+                                let number = numbers[i];
+
+                                // Checking whether the current number in the array is odd or even.
+                                // If even, the number will be BOLDED.
+                                if (number % 2 == 0) {
+                                    className = "even";
+                                }
+                                else {
+                                    className = "odd";
+                                }
+
+                                // Concatenates an HTML table row code onto the general string. 
+                                templateRows += `&lt;tr>&lt;td class="${className}" >${number}&lt;/td>&lt;/tr>
+                                
+                            }
+
+                            // Inserts the concatenated string into the 'tbody' HTML element.
+                            document.getElementById("results").innerHTML = templateRows;
+
+                        }
+
+
                     </code>
                     </pre>
                 </div>
                 <div class="col-lg-4">
-                    <p>The Code is structured in one function.</p>
-                    <h5>Hello World</h5>
-                    <p>Hello World is a function that displays an alert with a message of "Hellow World"</p>
+                    <p>The Code is structured in three functions.</p>
+                    <h5>getValues</h5>
+                    <p>getValues is a function that retrieves the starting and ending integer values from the input fields. This determines 
+                        where to start and stop counting. It takes no parameters and returns nothing.
+                    </p>
+                    <p>This function ensures that the input remains consistent by only accepting integer values between the 0 - 100 range.</p>
+                    <p>First, an attempt to parse the input into integers is made by converting the string literals returned to startValue 
+                        and endValue. After parsing, the values are validated as a final check that they are in fact integers.</p>
+                    <p>If the values are valid, a call to the generateNumbers function is made, followed by a call to displayNumbers. If
+                        the values are invalid, then an alert is sent to the user notifying them of the error. 
+                    </p>
+                    <h5>generateNumbers</h5>
+                    <p>generateNumbers is a function that populates an array with a subset of integer values determined by a given starting 
+                        point (startValue) and ending point (endValue).
+                    </p>
+                    <p>This function takes two integer parameters and returns an array of integers.</p>
+                    <h5>displayNumbers</h5>
+                    <p>displayNumbers is a function responsible for displaying the resulting integer count on the web page.</p>
+                    <p>It takes a single integer array parameter and returns nothing.</p>
+                    <p>This function contains a single for-loop that iterates over the integer array passed to it; concatenating a new HTML table
+                        row element for each integer part of the array.</p>
+                    <p>Additionally, this function displays each even number in BOLD for greater readability.</p>
                 </div>
             </div>
         </div>
